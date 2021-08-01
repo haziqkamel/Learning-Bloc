@@ -1,5 +1,8 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learning_bloc/cubit/internet_cubit.dart';
+
 import 'package:learning_bloc/presentation/router/app_router.dart';
 import 'package:learning_bloc/presentation/screens/home_screen.dart';
 
@@ -10,21 +13,32 @@ void main() {
   final CounterState counterState2 = CounterState(counterValue: 1);
   //This should return true
   print(counterState1 == counterState2);
-  runApp(MyApp());
+  runApp(MyApp(
+    appRouter: AppRouter(),
+    connectivity: Connectivity(),
+  ));
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
+class MyApp extends StatelessWidget {
+  final AppRouter appRouter;
+  final Connectivity connectivity;
 
-class _MyAppState extends State<MyApp> {
-  final AppRouter _appRouter = AppRouter();
+  const MyApp({
+    Key key,
+    @required this.appRouter,
+    @required this.connectivity,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CounterCubit>(
-      create: (context) => CounterCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<InternetCubit>(
+            create: (context) => InternetCubit(connectivity: connectivity)),
+        BlocProvider<CounterCubit>(
+            create: (context) => CounterCubit(
+                internetCubit: BlocProvider.of<InternetCubit>(context))),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -35,7 +49,7 @@ class _MyAppState extends State<MyApp> {
           title: 'Flutter Demo Home Page',
           color: Colors.blueAccent,
         ),
-        onGenerateRoute: _appRouter.onGenerateRoute,
+        onGenerateRoute: appRouter.onGenerateRoute,
       ),
     );
   }

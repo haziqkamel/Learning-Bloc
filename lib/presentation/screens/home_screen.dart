@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learning_bloc/constants/enums.dart';
 import 'package:learning_bloc/cubit/counter_cubit.dart';
+import 'package:learning_bloc/cubit/internet_cubit.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, @required this.title, this.color}) : super(key: key);
@@ -25,6 +27,37 @@ class _MyHomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            BlocBuilder<InternetCubit, InternetState>(
+                builder: (context, state) {
+              if (state is InternetConnected &&
+                  state.connectionType == ConnectionType.Wifi) {
+                return Text(
+                  'Wi-Fi',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline3
+                      .copyWith(color: Colors.green),
+                );
+              } else if (state is InternetConnected &&
+                  state.connectionType == ConnectionType.Mobile) {
+                return Text(
+                  'Mobile',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline3
+                      .copyWith(color: Colors.red),
+                );
+              } else if (state is InternetDisconnected) {
+                return Text(
+                  'Disconnected',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline3
+                      .copyWith(color: Colors.grey),
+                );
+              }
+              return CircularProgressIndicator();
+            }),
             Text(
               'You have pushed the button this many times:',
             ),

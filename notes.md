@@ -153,3 +153,4 @@ Notes: It's recommended to decide on a navigation style before starting developi
  b. SPECIFICALLY - when you want to SPECIFICALLY PROVIDE it acroos 1 or more SCREENS
  c. GLOBALLY - when you want to provide it ACROSS ALL OF YOUR SCREENS
 
+## Bloc to Bloc Communication
