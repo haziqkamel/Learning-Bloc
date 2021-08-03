@@ -154,3 +154,52 @@ Notes: It's recommended to decide on a navigation style before starting developi
  c. GLOBALLY - when you want to provide it ACROSS ALL OF YOUR SCREENS
 
 ## Bloc to Bloc Communication
+1. StreamSubscriptions
+2. BlocListener
+
+### BlocListener
+Pros
+    - It takes care INTERNALLY of all StreamSubscriptions
+    - No need to take care of stream/memory leaks anymore
+Cons
+    - The UI may get cluttered & hard to read with multiple BlocListeners
+
+## BLoc 6.1.0 New Concept
+!context.bloc is deprecate
+
+1. context.watch<BlocA>() TRANSLATION
+- From the widget that was build within the context BuildContext,
+- Start searching for the unique instance of BlocA(), provided aboce in the widget tree, then
+- After it's found, watch or "subscribe" to it's stream of emitted states,
+- And whenever a new state is emitted by BlocA
+- Rebuild the widget from which the lookup was started.
+
+2. context.select replacement for buildWhen
+
+3. context.read()
+- is a way to read/access a provided instance of bloc/cubit inside the widget tree
+- won't rebuild your widget from where you'll start searching for the bloc/cubit instance
+NOTE: context.watch() & context.select() WILL REBUILD it!
+- should be called only WHEN you need it, and only where you need it!
+
+THE WAY OF NOT USING context.read
+@override
+Widget build(BuildContext context) {
+    final bloc = context.read<MyBloc>();
+    return RaisedButton(
+        onPressed: () => bloc.add(MyEvent()),
+        ...
+    )
+}
+
+THE WAY OF USING context.read
+@override
+Widget build(BuildContext context) {
+    return RaisedButton(
+        onPressed: () => context.read<MyBloc>.add(MyEvent()),
+        ...
+    )
+}
+
+## Maintaining state with HydratedBloc like SharedPreferences
+- Store into AppData (local storage data)

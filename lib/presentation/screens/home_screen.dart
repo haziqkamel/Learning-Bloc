@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learning_bloc/constants/enums.dart';
-import 'package:learning_bloc/cubit/counter_cubit.dart';
-import 'package:learning_bloc/cubit/internet_cubit.dart';
+import 'package:learning_bloc/logic/cubit/counter_cubit.dart';
+import 'package:learning_bloc/logic/cubit/internet_cubit.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, @required this.title, this.color}) : super(key: key);
@@ -95,6 +95,47 @@ class _MyHomePageState extends State<HomePage> {
                 );
               },
             ),
+            SizedBox(height: 24),
+            //context.watch example
+            Builder(builder: (context) {
+              final counterState = context.watch<CounterCubit>().state;
+              final internetState = context.watch<InternetCubit>().state;
+
+              if (internetState is InternetConnected &&
+                  internetState.connectionType == ConnectionType.Mobile) {
+                return Text(
+                  'Counter: ' +
+                      counterState.counterValue.toString() +
+                      ' Internet: Mobile',
+                  style: Theme.of(context).textTheme.headline6,
+                );
+              } else if (internetState is InternetConnected &&
+                  internetState.connectionType == ConnectionType.Wifi) {
+                return Text(
+                  'Counter: ' +
+                      counterState.counterValue.toString() +
+                      ' Internet: Wi-Fi',
+                  style: Theme.of(context).textTheme.headline6,
+                );
+              } else {
+                return Text(
+                  'Counter: ' +
+                      counterState.counterValue.toString() +
+                      ' Internet: Disconnected',
+                  style: Theme.of(context).textTheme.headline6,
+                );
+              }
+            }),
+            SizedBox(height: 24),
+            //context.select example
+            Builder(builder: (context) {
+              final counterValue = context
+                  .select((CounterCubit cubit) => cubit.state.counterValue);
+              return Text(
+                'Counter: ' + counterValue.toString(),
+                style: Theme.of(context).textTheme.headline6,
+              );
+            }),
             SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

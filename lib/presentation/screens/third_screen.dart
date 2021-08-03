@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:learning_bloc/cubit/counter_cubit.dart';
+import 'package:learning_bloc/logic/cubit/counter_cubit.dart';
 import 'package:learning_bloc/presentation/screens/second_screen.dart';
 
 class ThirdScreen extends StatefulWidget {

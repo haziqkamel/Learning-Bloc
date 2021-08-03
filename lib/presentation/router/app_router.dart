@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learning_bloc/presentation/screens/settings_screen.dart';
 
 import '/presentation/screens/home_screen.dart';
 import '/presentation/screens/second_screen.dart';
@@ -30,6 +31,8 @@ class AppRouter {
             color: Colors.greenAccent,
           ),
         );
+      case '/settings':
+        return MaterialPageRoute(builder: (_) => SettingsScreen());
       default:
         return null;
     }
