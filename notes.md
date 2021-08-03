@@ -221,3 +221,22 @@ Widget build(BuildContext context) {
 3. onTransition() -> Transition {currentState: 0, event: CounterEvent.increment, nextState: 1}
 
 ## BlocObserver
+
+# Naming Conventions
+## THE STATES "Bloc(or Cubit) subject + action + state of the action"
+Example:
+
+WeatherBloc = WeatherFetchSuccess -> WeatherFetchInProgress -> WeatherFetchFailure
+
+UserCubit = UserCreateSuccess -> UserCreateInProgress -> UserDeleteFailure -> UserFetchSuccess
+
+## THE EVENTS "Bloc(or Cubit) subject + action(event) in past tense"
+Example:
+
+UserBloc = UserFetched -> UserDeleted -> UserCreated -> UserModified
+
+## THE FUNCTIONS "Action on what the cubit is working on"
+Example:
+
+UserCubit -> Fetch -> Delete -> Create -> Modify
+
