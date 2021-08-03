@@ -1,6 +1,6 @@
-# learning_bloc
+# Learning Flutter Bloc
 
-A new Flutter project.
+A Flutter Project which implement Flutter Bloc as State Management.
 
 ## Getting Started
 
