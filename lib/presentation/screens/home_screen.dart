@@ -22,6 +22,11 @@ class _MyHomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(widget.title),
         backgroundColor: widget.color,
+        actions: [
+          IconButton(
+              onPressed: () => Navigator.pushNamed(context, '/settings'),
+              icon: Icon(Icons.settings))
+        ],
       ),
       body: Center(
         child: Column(

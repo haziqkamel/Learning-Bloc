@@ -203,3 +203,21 @@ Widget build(BuildContext context) {
 
 ## Maintaining state with HydratedBloc like SharedPreferences
 - Store into AppData (local storage data)
+
+1. CounterCubit and CounterState - HydratedBloc to store counterValue which can be retrieved even after app exit
+2. InternetCubit and InternetState - No need HydratedBloc because we want it to be retrieve always to check the connectivity
+3. SettingsCubit and SettingsState - HydratedBloc to store boolean True/False for the selected settings which can be retrieved even after app exit
+
+## @override onEvent() vs @override onChanged()
+
+1. onEvent() is a method that is called before a new Event gets dispatched to the stream of Events (can be used to print the Events)
+2. onChanged() is a method that is called before a new State gets dispatched to the stream of States (can be used to print the States)
+
+## @override onTransition()
+- Combination of onEvent and onChanged
+
+1. OnChange() -> Change {currentState: 0, nextState: 1}
+2. onEvent() -> CounterEvent.increment
+3. onTransition() -> Transition {currentState: 0, event: CounterEvent.increment, nextState: 1}
+
+## BlocObserver
