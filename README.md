@@ -1,6 +1,12 @@
 # Learning Flutter Bloc
 
-A Flutter Project which implement Flutter Bloc as State Management.
+A Flutter Project which implement Flutter Bloc as State Management.\
+
+Included:
+- flutter_bloc
+- hyrated_bloc
+- bloc_test
+- connectivity_plus
 
 ## Getting Started
 
